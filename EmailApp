@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+public class Email {
+    private String firstName;
+    private String lastName;
+    private String password;
+    private final int pwLength = 10;
+    private String department;
+    private int capacity;
+    private String email;
+    private int mailCap;
+    private String alternateEmail;
+    private final String suffix = ".com";
+    private String company;
+
+
+    //class constructor
+    public Email (String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+        //Assign department to method asking for dep info
+        this.department = setDepartment();
+
+        //Assign password to method that generates password
+        this.password = randPw(pwLength);
+
+        //assign company name to input value for company
+        this.company = companyName();
+
+        //Generate email by combining all elements
+        this.email = firstName.toLowerCase() + lastName.toLowerCase() + "@" + department + company + suffix;
+        System.out.println("New email: " + email);
+    }
+
+    //Method to ask for the department and assign values
+    private String setDepartment() {
+        Scanner depInput = new Scanner (System.in);
+        System.out.println("Please enter a department\n1 for Marketing\n2 for Finance\n3 for Engineering");
+        System.out.println("0 for no department");
+        int choice = depInput.nextInt();
+        if (choice == 1) {return "mar.";}
+        else  if (choice == 2) {return "fin.";}
+        else if (choice == 3) {return "eng.";}
+        else {
+            return null;
+        }
+    }
+
+    //Generate random password
+    private String randPw(int length) {
+        String pwSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(),./<>?;':[]{}\\|";
+        char[] pw = new char[length];
+        for (int i = 0; i < length; i++) {
+            int random = (int)(Math.random() * pwSet.length());
+            pw[i] = pwSet.charAt(random);
+        }
+        return new String (pw);
+    }
+
+    private String companyName() {
+        Scanner input = new Scanner (System.in);
+        System.out.println("Enter your company name");
+        String name = input.nextLine();
+        return name;
+    }
+    //Set mailbox capacity
+    public void setMailBoxCap(int capacity) {
+        this.mailCap = capacity;
+    }
+
+    //Set alternate email
+    public void setAlternateEmail(String alternateEmail) {
+        this.alternateEmail = alternateEmail;
+    }
+
+    //Change password
+    public void setPw(String password) {
+        this.password = password;
+    }
+    
+}
